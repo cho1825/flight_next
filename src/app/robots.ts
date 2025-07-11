@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://flight-next.com/sitemap.xml',
+    sitemap: 'https://cheap-flight-for-you.vercel.app/sitemap.xml',
   }
 }
