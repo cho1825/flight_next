@@ -6,6 +6,8 @@ interface Suggestion {
     name: string;
     code: string;
     country_code: string;
+    iata_type: string;
+    flightable: boolean;
 }
 
 interface LocationSelector {
@@ -42,40 +44,14 @@ const LocationSelector: React.FC<LocationSelector> = ({
     const [toWriting, setToWriting] = useState<boolean>(false);
 
 
-    // const fetchSuggestions = async (
-    //     term: string,
-    //     setSuggestions: React.Dispatch<React.SetStateAction<Suggestion[]>>
-    // ) => {
-    //     if (!term.trim()) {
-    //         setSuggestions([]);
-    //         return;
-    //     }
-    //     try {
-    //         const response = await axios.get("https://autocomplete.travelpayouts.com/places2", {
-    //             params: {
-    //                 term,
-    //                 locale: selectedLanguage,
-    //                 types: "airport",
-    //             },
-    //         });
-    //         const filtered = response.data.filter((item: any) => item.type === "city" || item.type === "airport");
-    //         console.log(filtered)
-    //         setSuggestions(filtered);
-    //     } catch (e) {
-    //         console.error("Autocomplete error:", e);
-    //         setSuggestions([]);
-    //     }
-    // };
-
-
     useEffect(() => {
         const fetchAirportList = async () => {
             if (airportList.length > 0) return;
 
             try {
                 const response = await fetch('/assets/airports-en.json');
-                const resData = await response.json();
-                const filtered = resData.filter((item: any) =>
+                const resData:Suggestion[] = await response.json();
+                const filtered = resData.filter((item) =>
                     item.flightable === true && (item.iata_type === "city" || item.iata_type === "airport")
                 );
                 setAirportList(filtered);
@@ -86,7 +62,7 @@ const LocationSelector: React.FC<LocationSelector> = ({
 
         fetchAirportList();
 
-    }, [selectedLanguage]);
+    }, [airportList.length, selectedLanguage]);
 
 
     useEffect(() => {
@@ -116,7 +92,7 @@ const LocationSelector: React.FC<LocationSelector> = ({
             setFromSuggestions(filterd.slice(0, 30)); // 최대 10개만 보여주기
         }, 150);
         return () => clearTimeout(debounce);
-    }, [fromSearchTerm, airportList]);
+    }, [fromSearchTerm, airportList, fromWriting]);
 
 
     useEffect(() => {
@@ -132,7 +108,7 @@ const LocationSelector: React.FC<LocationSelector> = ({
         }, 150);
 
         return () => clearTimeout(debounce);
-    }, [toSearchTerm, airportList]);
+    }, [toSearchTerm, airportList, toWriting]);
 
     return (
         <>
