@@ -4,21 +4,20 @@ import LanguageSelector from "@/components/LanguageSelector";
 import TopVisualSection from "@/components/TopVisualSection";
 import SearchSection from "@/components/search/SearchSection";
 import CardSection from "@/components/cards/CardSection";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {LanguageCode} from "@/constants/language";
 
 export const Add = () => {
 
-    function getInitialLanguage() {
+
+    const [selectedLanguage, setSelectedLanguage] = useState<LanguageCode>("en");
+    useEffect(() => {
         const lang = navigator.language || navigator.languages[0];
-        if (lang.startsWith("ko")) return "ko";
-        if (lang.startsWith("ja")) return "ja";
-        if (lang.startsWith("zh")) return "zh";
-        return "en";
-    }
-
-    const [selectedLanguage, setSelectedLanguage] = useState<LanguageCode>(getInitialLanguage());
-
+        if (lang.startsWith("ko")) setSelectedLanguage("ko");
+        else if (lang.startsWith("ja")) setSelectedLanguage("ja");
+        else if (lang.startsWith("zh")) setSelectedLanguage("zh");
+        else setSelectedLanguage("en");
+    }, []);
 
     return (
         <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
