@@ -13,8 +13,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Flight Next - Your Ultimate Flight Booking Platform",
-  description: "Search, compare, and book cheap flights. Your next journey starts here with Flight Next.",
+    title: "Flight Next | International Budget Flight Finder for English Speakers",
+    description: "Flight Next helps English-speaking travelers find last-minute cheap flights from South Korea to Japan, Southeast Asia, and beyond. Compare and book your flight with real-time updates and affiliate links.",
+    keywords: [
+        "Flight Next",
+        "cheap flights",
+        "last minute flights",
+        "Korea Japan flight deals",
+        "budget travel",
+        "real-time flight search",
+        "English flight booking",
+        "affiliate flight deals",
+        "cho's flight",
+        "let's fly with cho",
+    ],
 };
 
 export default function RootLayout({
